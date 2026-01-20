@@ -1,0 +1,24 @@
+.login-wrapper {
+  // Un dégradé moderne qui rappelle le ciel et le voyage
+  background: linear-gradient(135deg, #0d6efd 0%, #002d72 100%);
+  min-height: 100vh; // Prend toute la hauteur de l'écran
+  width: 100%;
+}
+
+// Optionnel : un petit effet au survol du bouton
+.btn-primary {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+  }
+}
+
+.card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

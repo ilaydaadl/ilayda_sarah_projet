@@ -1,0 +1,68 @@
+
+.navbar {
+  transition: all 0.3s ease;
+
+
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(8px);
+
+  .navbar-brand {
+    font-size: 1.4rem;
+    i {
+      display: inline-block;
+      transform: rotate(-45deg);
+      margin-right: 5px;
+    }
+  }
+
+  .nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    color: #555;
+    transition: color 0.2s;
+
+
+    &.active {
+      color: #0d6efd !important;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 1rem;
+        right: 1rem;
+        height: 2px;
+        background-color: #0d6efd;
+        border-radius: 2px;
+      }
+    }
+
+    &:hover {
+      color: #0d6efd;
+    }
+  }
+
+  .navbar-text {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+
+  .btn-outline-danger {
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      transform: scale(1.05); // Petit effet de zoom au survol
+    }
+  }
+}
+
+
+:host {
+  display: block;
+  margin-bottom: 1rem;
+}

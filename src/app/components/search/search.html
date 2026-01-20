@@ -1,0 +1,112 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <h1 class="display-4 mb-4 fw-bold text-primary">Où commence votre aventure ?</h1>
+
+      <div class="input-group input-group-lg shadow-sm mb-5">
+        <span class="input-group-text bg-white border-end-0">
+          <i class="bi bi-search text-muted"></i>
+        </span>
+        <input type="text"
+               [(ngModel)]="citySearch"
+               class="form-control border-start-0"
+               placeholder="Ex: Tokyo, Paris, Rio..."
+               (keyup.enter)="search()">
+        <button class="btn btn-primary px-4" (click)="search()">Explorer</button>
+      </div>
+
+      @if (result) {
+        <div class="card shadow-lg border-0 overflow-hidden animate__animated animate__fadeIn">
+          <div class="row g-0">
+            <div class="col-md-4 bg-primary d-flex align-items-center justify-content-center text-white p-4">
+              <div class="text-center">
+                <i class="bi bi-cloud-sun display-1"></i>
+                <h3 class="display-5 mt-2">{{ result.temp }}°C</h3>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body text-start p-4">
+                <h2 class="card-title fw-bold">{{ result.city }}</h2>
+                <p class="card-text text-muted text-capitalize fs-5">{{ result.description }}</p>
+                <hr>
+                <div class="d-grid gap-2">
+                  <button class="btn btn-outline-primary" (click)="generateAiStory()" [disabled]="isGenerating">
+                    @if (isGenerating) {
+                      <span class="spinner-border spinner-border-sm me-2"></span> IA en réflexion...
+                    } @else {
+                      <i class="bi bi-stars"></i> Générer mon récit de voyage ✨
+                    }
+                  </button>
+                  @if (advice) {
+                    <div class="alert alert-info mt-4 animate__animated animate__fadeIn">
+                      <strong>Conseil :</strong> {{ advice }}
+                    </div>
+                  }
+
+                  @if (cityImage) {
+                    <div class="mt-4 animate__animated animate__fadeIn">
+                      <img [src]="cityImage"
+                           class="rounded-4 shadow-lg w-100"
+                           alt="Photo de la ville"
+                           style="height: 300px; object-fit: cover;">
+                    </div>
+                  }
+                  @if (itinerary.length > 0) {
+                    <div class="row mt-4">
+                      @for (item of itinerary; track item.day) {
+                        <div class="col-md-6 mb-4">
+                          <div class="card h-100 shadow border-0 overflow-hidden animate__animated animate__fadeInUp">
+
+                            <div class="card-header bg-primary text-white py-3 border-0">
+                              <h5 class="card-title mb-0 fw-bold">
+                                <i class="bi bi-calendar-check me-2"></i> JOUR {{ item.day }}
+                              </h5>
+                            </div>
+
+                            <div class="card-body p-0">
+                              <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item p-3">
+                                  <h6 class="text-primary fw-bold mb-1">
+                                    <i class="bi bi-sun-fill me-2"></i> Matin
+                                  </h6>
+                                  <p class="text-muted small mb-0">{{ item.morning }}</p>
+                                </li>
+
+                                <li class="list-group-item p-3 bg-light">
+                                  <h6 class="text-success fw-bold mb-1">
+                                    <i class="bi bi-egg-fried me-2"></i> Déjeuner
+                                  </h6>
+                                  <p class="text-muted small mb-0">{{ item.lunch }}</p>
+                                </li>
+
+                                <li class="list-group-item p-3">
+                                  <h6 class="text-warning fw-bold mb-1">
+                                    <i class="bi bi-camera-reels-fill me-2"></i> Après-midi
+                                  </h6>
+                                  <p class="text-muted small mb-0">{{ item.afternoon }}</p>
+                                </li>
+
+                                <li class="list-group-item p-3 bg-dark text-white">
+                                  <h6 class="text-info fw-bold mb-1">
+                                    <i class="bi bi-moon-stars-fill me-2"></i> Soirée
+                                  </h6>
+                                  <p class="small mb-0 opacity-75">{{ item.evening }}</p>
+                                </li>
+
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

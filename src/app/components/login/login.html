@@ -1,0 +1,54 @@
+<div class="login-wrapper d-flex align-items-center justify-content-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 col-lg-4">
+
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-body p-5">
+
+            <div class="text-center mb-4">
+              <div class="display-1 text-primary mb-2">
+                <i class="bi bi-airplane-fill"></i>
+              </div>
+              <h2 class="fw-bold text-dark">Connexion</h2>
+            </div>
+
+            <form (ngSubmit)="onLogin()">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope"></i></span>
+                  <input type="email" name="email" [(ngModel)]="email"
+                         class="form-control bg-light border-start-0"
+                         placeholder="nom@exemple.com" required>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label fw-semibold">Mot de passe</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock"></i></span>
+                  <input type="password" name="password" [(ngModel)]="password"
+                         class="form-control bg-light border-start-0"
+                         placeholder="••••••••" required>
+                </div>
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg rounded-3 fw-bold">
+                  Se connecter <i class="bi bi-arrow-right ms-2"></i>
+                </button>
+              </div>
+            </form>
+
+            <div class="text-center mt-4">
+              <small class="text-muted">Pas encore de compte ? <a href="#" class="text-decoration-none fw-bold">S'inscrire</a></small>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-primary" href="#">
+      <i class="bi bi-airplane-engines"></i> Travel Planner
+    </a>
+
+    <div class="navbar-nav me-auto">
+      <a class="nav-link" routerLink="/explorer" routerLinkActive="active">Explorer</a>
+      <a class="nav-link" routerLink="/planner" routerLinkActive="active">Mon Voyage</a>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+      <button (click)="logout()" class="btn btn-outline-danger btn-sm">
+        <i class="bi bi-box-arrow-right"></i> Déconnexion
+      </button>
+    </div>
+  </div>
+</nav>
