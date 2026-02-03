@@ -1,18 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold text-primary" href="#">
+  <div class="container d-flex align-items-center justify-content-between">
+
+    <a class="navbar-brand fw-bold text-primary m-0" href="#">
       <i class="bi bi-airplane-engines"></i> Travel Planner
     </a>
 
-    <div class="navbar-nav me-auto">
-      <a class="nav-link" routerLink="/explorer" routerLinkActive="active">Explorer</a>
-      <a class="nav-link" routerLink="/planner" routerLinkActive="active">Mon Voyage</a>
+    <div class="search-container">
+      <div class="search-wrapper">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (input)="onTyping()"
+          (keyup.enter)="onSearch()"
+          placeholder="Où voulez-vous aller ?"
+          class="search-input">
+      </div>
+      @if (suggestions.length > 0) {
+        <ul class="suggestions-dropdown">
+          @for (s of suggestions; track s) {
+            <li (click)="selectCity(s)">
+              <div class="d-flex flex-column">
+                <span class="city-name">{{ s.name }}</span>
+                <span class="country-name">{{ s.country }}</span>
+              </div>
+            </li>
+          }
+        </ul>
+      }
     </div>
 
-    <div class="d-flex align-items-center gap-3">
-      <button (click)="logout()" class="btn btn-outline-danger btn-sm">
-        <i class="bi bi-box-arrow-right"></i> Déconnexion
-      </button>
-    </div>
   </div>
 </nav>

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, catchError } from 'rxjs';
 import { TripData } from '../models/trip.model';
+import { BehaviorSubject } from 'rxjs';
+import { Trip } from '../models/trip.model';
 
 export interface DailyStep {
   day: number;
@@ -16,6 +18,21 @@ export class TripService {
   private apiKey = 'ddccc20834f9c431cb2569e3cda58be2';
 
   constructor(private http: HttpClient) {}
+  private currentTripSubject = new BehaviorSubject<Trip | null>(null);
+
+  getTrip(): Observable<Trip | null> {
+    return this.currentTripSubject.asObservable();
+  }
+
+  selectDestination(lat: number, lng: number) {
+    const trip: Trip = {
+      latitude: lat,
+      longitude: lng,
+      days: []
+    };
+
+    this.currentTripSubject.next(trip);
+  }
 
   getDestinationInfo(city: string): Observable<TripData> {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.apiKey}&units=metric&lang=fr`;
@@ -30,14 +47,24 @@ export class TripService {
     );
   }
 
-  getCityImage(city: string): Observable<string> {
-    // Cette URL demande à Wikipédia l'image principale de la ville
-    const url = `https://fr.wikipedia.org/api/rest_v1/page/summary/${city}`;
+  getCityImage(cityName: string): Observable<string> {
+    // 1. On nettoie le nom : "Paris, France" -> "Paris"
+    const searchTerm = cityName.split(',')[0].trim();
+
+    // 2. L'URL de l'API Wikipédia (format Summary)
+    const url = `https://fr.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchTerm)}`;
 
     return this.http.get<any>(url).pipe(
       map(res => {
-        // Si Wikipédia a une image, on la prend, sinon on met une image de secours
-        return res.thumbnail ? res.thumbnail.source : 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800';
+        // On vérifie dans la console ce que l'API nous donne vraiment
+        console.log("Données API Wikipédia pour " + searchTerm, res);
+
+        // On cherche l'image originale, sinon la miniature
+        return res.originalimage?.source || res.thumbnail?.source || '';
+      }),
+      catchError(err => {
+        console.error("Erreur API sur " + searchTerm, err);
+        return (''); // Retourne vide si la ville n'existe pas sur Wiki
       })
     );
   }

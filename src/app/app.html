@@ -1,4 +1,152 @@
-<app-navbar></app-navbar>
-<main>
-  <router-outlet></router-outlet>
-</main>
+<div class="main-layout">
+  <app-navbar (cityFound)="maFonctionDePlanification($event)"></app-navbar>
+
+  <div class="map-wrapper">
+    <app-world-map (destinationSelected)="maFonctionDePlanification($event)"></app-world-map>
+
+    <div class="info-overlay">
+      @if (loading) {
+        <div class="destination-card">
+          <p class="loader-text">L'IA explore {{ cityName }}... ✨</p>
+        </div>
+      }
+
+      @if (cityName && !loading) {
+        <div class="destination-card">
+          <button class="btn-close" (click)="fermerFenetre()" title="Fermer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          @if (cityImage) {
+            <div class="city-header-image">
+              <img [src]="cityImage" alt="Destination">
+              <div class="image-shadow"></div>
+            </div>
+          }
+
+          <div class="card-content">
+            <h1>{{ cityName }}</h1>
+
+            @if (weatherData) {
+              <div class="weather-badge">
+                <img [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '.png'" alt="météo">
+                <div class="weather-info">
+                  <span class="temp">{{ weatherData.main.temp }}°C</span>
+                  <span class="desc">{{ weatherData.weather[0].description }}</span>
+                </div>
+              </div>
+            }
+            @if (weatherData) {
+              <div class="weather-info">
+                <div class="conseil-ia animate__animated animate__fadeInUp">
+                  <i class="bi bi-lightbulb-fill text-warning"></i>
+                  <em> {{ conseilMeteo }} </em>
+                </div>
+              </div>
+            }
+
+
+
+            @if (!itinerary) {
+              <div class="button-group">
+                <button class="btn-generate" (click)="genererItineraryIA()">Découvrir ✨</button>
+                <button class="btn-secondary" (click)="fermerFenetre()">📍 Choisir une autre destination</button>
+              </div>
+            }
+
+            @else {
+              <div class="resultat-ia-interne" id="pdf-content">
+                @if (specialites.length > 0) {
+                  <div class="gastro-wrapper">
+                    <div class="gastro-header">
+                      <span class="gastro-subtitle">Culture & Gastronomie</span>
+                      <h3 class="gastro-main-title">À goûter absolument à {{ cityName }}</h3>
+                    </div>
+
+                    <div class="gastro-grid">
+                      @for (s of specialites; track s.nom) {
+                        <div class="gastro-card">
+                          <div class="gastro-card-content">
+                            <div class="gastro-top">
+                              <span class="gastro-tag">Incontournable</span>
+                              <span class="gastro-icon">🍽️</span>
+                            </div>
+                            <h4>{{ s.nom }}</h4>
+                            <p>{{ s.desc }}</p>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+                @if (isGeneratingPDF) {
+                  <p class="loader-text">Rédaction de votre carnet de {{ nbJours }} jours... ✍️</p>
+                } @else {
+                  <p style="white-space: pre-wrap;">{{ itinerary }}</p>
+                }
+              </div>
+
+              <div class="pdf-section">
+                <div class="input-group">
+                  <label>Prêt pour un carnet complet ?</label>
+                  <div class="input-row">
+                    <input type="number" [(ngModel)]="nbJours" min="1" max="30" class="input-days">
+                    <span>jours</span>
+                  </div>
+                </div>
+
+                <button class="btn-pdf" [disabled]="isGeneratingPDF" (click)="preparerEtTelechargerPDF()">
+                  Génère ton Carnet de Voyage en PDF ({{ nbJours }}j) 📥
+                </button>
+              </div>
+              <div class="flight-section">
+                <div class="flight-search-bar">
+                  <div class="input-wrapper">
+                    <span class="plane-icon">✈️</span>
+                    <input
+                      type="text"
+                      [(ngModel)]="villeDepart"
+                      (input)="chercherAeroport($event)"
+                      placeholder="Ville de départ..."
+                    />
+                  </div>
+
+                  <button (click)="ouvrirLienVols()" [disabled]="!villeDepart" class="btn-vols-mini">
+                    Trouver un vol
+                  </button>
+                </div>
+
+                @if (suggestionsDepart.length > 0) {
+                  <div class="glass-suggestions-container">
+                    <ul class="glass-suggestions">
+                      @for (sug of suggestionsDepart; track sug) {
+                        <li (click)="selectionnerDepart(sug)">
+                          <div class="sug-content">
+                            <div class="sug-icon-wrapper">
+                              <i class="bi bi-geo-alt"></i> </div>
+                            <div class="sug-text">
+                              <span class="city-name">{{ sug.name }}</span>
+                              <span class="country-name">{{ sug.country }}</span>
+                            </div>
+                          </div>
+                          <div class="sug-badge">Aéroport</div>
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
+
+              <div class="button-group">
+                <button class="btn-secondary" (click)="fermerFenetre()">📍 Autre destination</button>
+                <button class="btn-reset" (click)="reinitialiserTout()">⬅ Revenir au Globe</button>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

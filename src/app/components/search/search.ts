@@ -15,7 +15,7 @@ export class SearchComponent {
   citySearch = '';
   result: TripData | null = null;
 
-  // Variables d'affichage (une seule fois chaque !)
+
   itinerary: DailyStep[] = [];
   isGenerating = false;
   advice = '';

@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+
+app-navbar {
+  position: relative;
+  z-index: 9999 !important;
+  display: block;
+}
+
+
+.navbar, .container, .container-fluid {
+  overflow: visible !important;
+}

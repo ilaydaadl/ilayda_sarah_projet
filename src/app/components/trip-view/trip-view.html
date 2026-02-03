@@ -1,0 +1,11 @@
+<div *ngIf="trip$ | async as trip" class="trip-view">
+  <h1>Ton aventure commence ✨</h1>
+  <p>{{ trip.narration }}</p>
+
+  <div *ngFor="let day of trip.days">
+    <h3>Jour {{ day.day }}</h3>
+    <ul>
+      <li *ngFor="let act of day.activities">{{ act }}</li>
+    </ul>
+  </div>
+</div>
