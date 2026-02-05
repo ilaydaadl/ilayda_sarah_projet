@@ -35,7 +35,7 @@ export class App {
   @ViewChild(WorldMap) worldMapComponent!: WorldMap;
 
   constructor(private geocodingService: GeocodingService,
-  private cdr: ChangeDetectorRef,
+              private cdr: ChangeDetectorRef,
               private iaService: IaService,
               private tripService: TripService,
               private weatherService: WeatherService) {}
@@ -363,6 +363,10 @@ export class App {
     //  Pour vraiment "revenir au globe" proprement
 
     window.location.reload();
+  }
+
+  formatText(text: string) {
+    return text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
   }
 
   protected readonly title = signal('sarah_ilayda_projet');

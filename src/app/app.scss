@@ -1,37 +1,23 @@
-/*
-   STRUCTURE GLOBALE & LAYOUT
-  */
+/* 1. STRUCTURE GLOBALE & LAYOUT
+*/
 :host {
   display: block;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
 }
-/* Définition de l'animation */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translate(-50%, 20px); /* Part d'un peu plus bas */
+    transform: translate(-50%, 20px);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0); /* Arrive à sa position initiale */
+    transform: translate(-50%, 0);
   }
 }
 
-/* Application à l'overlay */
-.info-overlay {
-  position: absolute;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  width: 95%;
-  max-width: 900px;
-  pointer-events: none;
-
-  animation: fadeInUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
 .main-layout {
   display: flex;
   flex-direction: column;
@@ -52,9 +38,8 @@ app-world-map {
   height: 100%;
 }
 
-/*
-  LA CARTE DESTINATION
-   */
+/* 2. OVERLAY & CARTE DESTINATION
+*/
 .info-overlay {
   position: absolute;
   top: 30px;
@@ -64,6 +49,7 @@ app-world-map {
   width: 95%;
   max-width: 900px;
   pointer-events: none;
+  animation: fadeInUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 .destination-card {
@@ -88,18 +74,15 @@ app-world-map {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
   }
-}/*IMAGE HEADER  */
+}
+
+/* IMAGE HEADER */
 .city-header-image {
-
-  display: block !important;
+  display: block;
   position: relative;
-
   margin: -2.5rem -2.5rem 2rem -2.5rem;
-
-
   width: auto;
   min-width: calc(100% + 5rem);
-
   height: 260px;
   min-height: 260px;
   overflow: hidden;
@@ -110,12 +93,9 @@ app-world-map {
     height: 100%;
     object-fit: cover;
     display: block;
-
-    visibility: visible !important;
-    opacity: 1 !important;
+    opacity: 1;
   }
 }
-
 
 .btn-close {
   position: absolute;
@@ -124,31 +104,27 @@ app-world-map {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5); /* Fond sombre pour être visible sur l'image */
+  background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 9999; /* Doit être au-dessus de l'image et du shadow */
+  z-index: 9999;
   transition: all 0.2s ease;
   padding: 0;
 
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-
+  svg { width: 16px; height: 16px; }
   &:hover {
     background: #ef4444;
     border-color: #ef4444;
     transform: rotate(90deg);
   }
 }
-/*
-   TITRE, MÉTÉO & CONSEILS
-  */
+
+/* 3. CONTENU (TITRE, MÉTÉO, GASTRONOMIE)
+*/
 .destination-card h1 {
   font-size: 2.8rem;
   font-weight: 900;
@@ -185,22 +161,15 @@ app-world-map {
   text-align: left;
 }
 
-/*
-   GASTRONOMIE
-  */
 .gastro-wrapper {
   margin: 25px 0;
   text-align: left;
-
-  .gastro-header {
-    margin-bottom: 15px;
-    .gastro-subtitle {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #f39c12;
-      font-weight: 800;
-    }
+  .gastro-subtitle {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #f39c12;
+    font-weight: 800;
   }
 }
 
@@ -208,7 +177,6 @@ app-world-map {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-
   @media (max-width: 850px) { grid-template-columns: 1fr; }
 }
 
@@ -224,7 +192,6 @@ app-world-map {
     border-color: #f39c12;
     transform: translateY(-4px);
   }
-
   .gastro-tag {
     font-size: 0.6rem;
     color: #f39c12;
@@ -233,125 +200,41 @@ app-world-map {
     margin-bottom: 6px;
     display: block;
   }
-
   h4 { margin: 0 0 6px 0; font-size: 1rem; color: white; }
   p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
 }
 
-/*
-   RECHERCHE DE VOLS
-    */
-.flight-section {
-  margin: 20px 0;
-  .flight-search-bar {
-    display: flex;
-    gap: 10px;
-    .input-wrapper {
-      flex: 1;
-      background: white;
-      border-radius: 10px;
-      padding: 0 15px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      input { border: none; outline: none; width: 100%; color: #1e293b; font-size: 0.9rem; }
-    }
-    .btn-vols-mini {
-      background: #3b82f6;
-      color: white;
-      border: none;
-      padding: 0 20px;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      &:hover { background: #2563eb; }
-    }
-  }
-}
-
-/*
-   RÉSULTAT ITINÉRAIRE & PDF
-    */
-.resultat-ia-interne {
-  text-align: left;
-  background: rgba(255, 255, 255, 0.02);
-  padding: 25px;
-  border-radius: 20px;
-  margin-top: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-
-  p {
-    line-height: 1.8;
-    color: #cbd5e1;
-    font-size: 1.05rem;
-    white-space: pre-line;
-  }
-}
-
-.pdf-section {
-  margin-top: 25px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 20px;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-
-  .input-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
-    input {
-      width: 70px;
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: white;
-      padding: 8px;
-      border-radius: 8px;
-      text-align: center;
-    }
-  }
-}
-
-/*
-   BOUTONS
-   */
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 25px;
-}
-
-.btn-generate {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white; border: none; padding: 18px; border-radius: 16px;
-  font-weight: 800; font-size: 1.1rem; cursor: pointer;
-  transition: transform 0.2s;
-  &:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4); }
-}
-
-.btn-pdf {
-  background: linear-gradient(135deg, #ec4899 0%, #d946ef 100%);
-  color: white; border: none; padding: 15px; border-radius: 14px;
-  font-weight: 700; cursor: pointer;
-  &:hover { transform: scale(1.02); }
-}
-
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white; border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 14px; border-radius: 14px; cursor: pointer;
-  &:hover { background: rgba(255, 255, 255, 0.2); }
-}
-/*
-   SUGGESTIONS AÉROPORTS
-    */
-
+/* 4. VOLS & SUGGESTIONS
+*/
 .flight-section {
   position: relative;
   margin: 20px 0;
-  overflow: visible !important; /* Pour que la liste "sorte" de la section */
+  overflow: visible !important;
+}
+
+.flight-search-bar {
+  display: flex;
+  gap: 10px;
+  .input-wrapper {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 0 15px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    input { border: none; outline: none; width: 100%; color: #1e293b; font-size: 0.9rem; }
+  }
+  .btn-vols-mini {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover { background: #2563eb; }
+  }
 }
 
 .glass-suggestions-container {
@@ -364,7 +247,7 @@ app-world-map {
 }
 
 .glass-suggestions {
-  background: rgba(30, 41, 59, 0.85) !important;
+  background: rgba(30, 41, 59, 0.85);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
@@ -384,48 +267,485 @@ app-world-map {
     align-items: center;
     transition: all 0.2s ease;
     margin-bottom: 2px;
-    background: transparent;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1) !important;
+      background: rgba(255, 255, 255, 0.1);
       transform: translateX(4px);
     }
-
     .sug-content {
       display: flex;
       flex-direction: column;
       text-align: left;
-
-      .city-name {
-        font-weight: 600;
-        color: #ffffff;
-        font-size: 0.9rem;
-      }
-
-      .country-name {
-        font-size: 0.7rem;
-        color: #94a3b8;
-      }
+      .city-name { font-weight: 600; color: #ffffff; font-size: 0.9rem; }
+      .country-name { font-size: 0.7rem; color: #94a3b8; }
     }
-
-    &::after {
-      content: '→';
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 0.8rem;
-    }
+    &::after { content: '→'; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; }
   }
+}
 
+/* 5. RÉSULTATS & PDF
+*/
+.resultat-ia-interne {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 25px;
+  border-radius: 20px;
+  margin-top: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 
-  &::-webkit-scrollbar {
-    width: 4px;
+  p {
+    line-height: 1.8;
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    white-space: pre-line;
   }
+}
+
+.pdf-section .input-group input {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 5px;
+  &:focus { outline: none; border-color: #3b82f6; }
+}
+
+/* 6. BOUTONS
+*/
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+
+  button { flex: 1; max-width: 200px; }
+}
+
+.btn-generate {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white; border: none; padding: 18px; border-radius: 16px;
+  font-weight: 800; font-size: 1.1rem; cursor: pointer;
+  transition: transform 0.2s;
+  &:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4); }
+}
+/* 1. STRUCTURE GLOBALE & LAYOUT
+*/
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.map-wrapper {
+  flex-grow: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #0f172a;
+}
+
+app-world-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 2. OVERLAY & CARTE DESTINATION
+*/
+.info-overlay {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 95%;
+  max-width: 900px;
+  pointer-events: none;
+  animation: fadeInUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.destination-card {
+  position: relative;
+  pointer-events: all;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  padding: 2.5rem;
+  border-radius: 32px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  max-height: 85vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  &::-webkit-scrollbar { width: 6px; }
   &::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
   }
 }
 
-/* Petite animation d'entrée */
+/* IMAGE HEADER */
+.city-header-image {
+  display: block;
+  position: relative;
+  margin: -2.5rem -2.5rem 2rem -2.5rem;
+  width: auto;
+  min-width: calc(100% + 5rem);
+  height: 260px;
+  min-height: 260px;
+  overflow: hidden;
+  z-index: 1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 1;
+  }
+}
+
+.btn-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  transition: all 0.2s ease;
+  padding: 0;
+
+  svg { width: 16px; height: 16px; }
+  &:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+    transform: rotate(90deg);
+  }
+}
+
+/* 3. CONTENU (TITRE, MÉTÉO, GASTRONOMIE)
+*/
+.destination-card h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  background: linear-gradient(to bottom, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1.5px;
+}
+
+.weather-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0 auto 15px auto;
+
+  img { width: 42px; height: 42px; }
+  .temp { font-weight: 800; font-size: 1.3rem; }
+  .desc { font-size: 0.8rem; color: #94a3b8; text-transform: capitalize; }
+}
+
+.conseil-ia {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid #f39c12;
+  padding: 12px 18px;
+  margin: 10px 0 20px 0;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  color: #e2e8f0;
+  text-align: left;
+}
+
+.gastro-wrapper {
+  margin: 25px 0;
+  text-align: left;
+  .gastro-subtitle {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #f39c12;
+    font-weight: 800;
+  }
+}
+
+.gastro-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  @media (max-width: 850px) { grid-template-columns: 1fr; }
+}
+
+.gastro-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 18px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: #f39c12;
+    transform: translateY(-4px);
+  }
+  .gastro-tag {
+    font-size: 0.6rem;
+    color: #f39c12;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 6px;
+    display: block;
+  }
+  h4 { margin: 0 0 6px 0; font-size: 1rem; color: white; }
+  p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
+}
+
+/* 4. VOLS & SUGGESTIONS
+*/
+.flight-section {
+  position: relative;
+  margin: 20px 0;
+  overflow: visible !important;
+}
+
+.flight-search-bar {
+  display: flex;
+  gap: 10px;
+  .input-wrapper {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 0 15px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    input { border: none; outline: none; width: 100%; color: #1e293b; font-size: 0.9rem; }
+  }
+  .btn-vols-mini {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover { background: #2563eb; }
+  }
+}
+
+.glass-suggestions-container {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  animation: fadeInDown 0.3s ease;
+}
+
+.glass-suggestions {
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  list-style: none;
+  padding: 6px;
+  margin: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  max-height: 220px;
+  overflow-y: auto;
+
+  li {
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    margin-bottom: 2px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+    .sug-content {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      .city-name { font-weight: 600; color: #ffffff; font-size: 0.9rem; }
+      .country-name { font-size: 0.7rem; color: #94a3b8; }
+    }
+    &::after { content: '→'; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; }
+  }
+}
+
+/* 5. RÉSULTATS & PDF
+*/
+.resultat-ia-interne {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 25px;
+  border-radius: 20px;
+  margin-top: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  p {
+    line-height: 1.8;
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    white-space: pre-line;
+  }
+}
+
+.pdf-section .input-group input {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 5px;
+  &:focus { outline: none; border-color: #3b82f6; }
+}
+
+/* 6. BOUTONS
+*/
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+
+  button { flex: 1; max-width: 200px; }
+}
+
+.btn-generate {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white; border: none; padding: 18px; border-radius: 16px;
+  font-weight: 800; font-size: 1.1rem; cursor: pointer;
+  transition: transform 0.2s;
+  &:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4); }
+}
+.btn-pdf {
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+  }
+}
+
+.btn-reset {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  &:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  }
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+  }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-reset {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  &:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  }
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+  }
+}
+
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
