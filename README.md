@@ -29,7 +29,7 @@ ng serve
 
 Accès à l'application via : http://localhost:4200
 
-CODE API GROQ : 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
+CLE API GROQ à ajouter dans environnement.ts (pour la sécurité): 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
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
